@@ -15,11 +15,11 @@ import { names, type ChatMessage, type Message } from "../shared";
 function App() {
   const [name] = useState(names[Math.floor(Math.random() * names.length)]);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const { room } = useParams();
+  const { room } = "global-chat";
 
   const socket = usePartySocket({
     party: "chat",
-    room,
+    room: "global-chat",
     onMessage: (evt) => {
       const message = JSON.parse(evt.data as string) as Message;
       if (message.type === "add") {
@@ -123,7 +123,7 @@ function App() {
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Navigate to={`/${nanoid()}`} />} />
+      <Route path="/" element={<Navigate to="/global-chat" />} />
       <Route path="/:room" element={<App />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
