@@ -19,7 +19,7 @@ function App() {
 
   const socket = usePartySocket({
     party: "chat",
-    room: "global-chat",
+    const { room } = useParams();
     onMessage: (evt) => {
       const message = JSON.parse(evt.data as string) as Message;
       if (message.type === "add") {
@@ -123,7 +123,7 @@ function App() {
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Navigate to="/global-chat" />} />
+      <Route path="/" element={<Navigate to={`/${nanoid()}`} />} />
       <Route path="/:room" element={<App />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
